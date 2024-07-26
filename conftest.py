@@ -1,6 +1,6 @@
 import pytest
 from selenium import webdriver
-from data import MAIN_PAGE_URL,RESOLUTION,payload
+from data import MAIN_PAGE_URL,RESOLUTION,payload, REGISTER, AUTH
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as Options
 import requests
@@ -24,7 +24,7 @@ def driver(request):
 
 @pytest.fixture()
 def make_new_user():
-    response = requests.post(f'{MAIN_PAGE_URL}api/auth/register', payload)
+    response = requests.post(REGISTER, payload)
     token = response.json()['accessToken']
     yield response
-    requests.delete(f'{MAIN_PAGE_URL}api/auth/user', headers={'Authorization': token})
+    requests.delete(AUTH, headers={'Authorization': token})

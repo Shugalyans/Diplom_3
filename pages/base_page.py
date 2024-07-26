@@ -25,8 +25,8 @@ class BasePage:
         self.click(BasePageLocators.ORDERS_LOGO)
 
     @allure.step('Вводим нужный URL')
-    def set_current_url(self, URL):
-        self.driver.get(URL)
+    def set_current_url(self, url):
+        self.driver.get(url)
 
     @allure.step('Кликаем по элементу с нужным локатором')
     def click(self, locator):

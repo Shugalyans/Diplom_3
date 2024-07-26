@@ -1,5 +1,5 @@
 import allure
-from data import MAIN_PAGE_URL
+from data import MAIN_PAGE_URL, ORDERS_LIST_URL
 from locators.main_page_locators import MainPageLocators
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
@@ -11,7 +11,7 @@ class TestMainPage:
     @allure.description('Переходим на страницу списка заказов, после чего переходим на главную страницу, нажав на Конструктор')
     def test_constructor_button(self, driver):
         main_page = MainPage(driver)
-        main_page.set_current_url(f'{MAIN_PAGE_URL}feed')
+        main_page.set_current_url(ORDERS_LIST_URL)
         main_page.wait_and_find_element(MainPageLocators.ORDERS_LIST)
         main_page.constructor_button_click()
         main_page.wait_and_find_element(MainPageLocators.CREATE_BURGER_HEADER)
@@ -27,7 +27,7 @@ class TestMainPage:
         main_page.orders_button_click()
         main_page.wait_and_find_element(MainPageLocators.ORDERS_LIST)
 
-        assert main_page.get_current_url() == f'{MAIN_PAGE_URL}feed'
+        assert main_page.get_current_url() == ORDERS_LIST_URL
 
     @allure.title('Проверка перехода на детали ингредиента по клику на ингредиент')
     @allure.description('Переходим на всплывающее окно "Детали ингредиента", нажав на сам ингредиент')
@@ -65,7 +65,6 @@ class TestMainPage:
     @allure.title('Проверка авторизованный пользователь может сделать заказ')
     @allure.description('залогиненный пользователь может оформить заказ')
     def test_authorized_user_create_order(self, driver, make_new_user):
-        make_new_user
         main_page = MainPage(driver)
         main_page.set_current_url(MAIN_PAGE_URL)
         login_page = LoginPage(driver)
